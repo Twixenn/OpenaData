@@ -5,6 +5,7 @@ page.settings.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.
 //sidans utseende kan ändras om fönstret är för litet (vissa objekt kan vara svårare att få tag på)
 page.viewportSize = {width: 1280, height: 1024};
 //Testar så urlen fungerar om jag sätter in egna värden
+//Tanken var att jag skulle hämta dessa från inputen med id="to" och id="date"
 var city = "Berlin";
 var checkin = "2017-11-24";
 var checkout = "2017-11-30";

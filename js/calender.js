@@ -97,6 +97,36 @@ $(document).ready(function() {
   });
 });
 
+function displayCalender(month) {
+  thisMonth = month;
+  //sätter rubriken till rätt månad
+  $("#calender h2").text(months[thisMonth]);
+  $("#calender tbody td").each(function() {
+    tds.push(this);
+    var today = new Date();
+    //om td är en cell som inte ska innehålla datum denna månaden
+    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay()) {
+      $(this).text("");
+      $(this).addClass("disabled");
+    }
+    //om datumet redan varit
+    else if(date < new Date().getDate()) {
+      $(this).addClass("disabled");
+      $(this).text(date);
+      date++;
+    }
+    //om datumet är innan nästa månad
+    else if(date <= new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) {
+      $(this).text(date);
+      date++;
+    } else {
+      $(this).addClass("invisible");
+      $(this).text("");
+    }
+    tdPosition++;
+  });
+}
+
 //sätter värdet av avresan och hemresan i inputen
 function addToInput(departD, returnD) {
   $("input[name='date']").val(departD.getFullYear() + "-" + departD.getDate() + "-" + departD.getMonth()

@@ -3,7 +3,6 @@ var map;
 var geocoder;
 var markers = [];
 var koordinates = [];
-
 function initAutocomplete() {
   geocoder = new google.maps.Geocoder();
   var start = {lat: 43.258288, lng: 6.728614};
@@ -240,13 +239,14 @@ function initAutocomplete() {
   });
 
   //Så det endast går att söka på städer
-  var options = {
+  var cities = {
     types: ['(cities)']
   };
 
   //gör så att inputsen har autocomplete
-  new google.maps.places.Autocomplete(document.getElementById('to'), options);
-  new google.maps.places.Autocomplete(document.getElementById('from'), options);
+  new google.maps.places.Autocomplete(document.getElementById('to'), cities);
+  new google.maps.places.Autocomplete(document.getElementById('from'), cities);
+
 }
 
 function codeAddress(address) {
@@ -258,11 +258,63 @@ function codeAddress(address) {
         var lat = results[0].geometry.location.lat();
         var lng = results[0].geometry.location.lng();
         koordinates.push(lat);
-        koordinates.push(lng)
-        addMarker(lat, lng)
+        koordinates.push(lng);
+        addMarker(lat, lng);
+        var latlng = {
+          lat: lat,
+          lng: lng
+        };
+        //kollar efter närliggande flygplatser
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: latlng,
+          radius: 50000,
+          type: ['airport']
+        }, processResults);
       }
     });
   }
+}
+
+function processResults(results, status, pagination) {
+  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+    return;
+  } else {
+    getLocation(results);
+  }
+}
+
+function getLocation(places) {
+  //tar första (närmaste) flygplatsen
+  for (var i = 0; i < 1; i++) {
+    var place = places[i];
+    var image = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+    loadDataAirport(place.geometry.location.lat(), place.geometry.location.lng());
+  }
+}
+
+//hämtar IATA-koden
+function loadDataAirport(lat, lng) {
+  var url = "http://iatageo.com/getCode/" + lat + "/" + lng;
+  $.ajax({
+    dataType: "json",
+    url:url,
+    success:function (data){
+      var iata = data.IATA;
+      if(iata != null) {
+        loadDataFlights(data.IATA);
+      }
+    },
+    error:function (jqXHR, status, error){
+      alert("warning");
+    }
+  })
 }
 
 //gör markers
