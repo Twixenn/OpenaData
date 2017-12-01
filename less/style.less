@@ -18,6 +18,10 @@ body {
   margin: auto;
 }
 
+.clear-both {
+  clear: both;
+}
+
 button {
   border: 2px solid @darkBlue;
   background-color: @darkBlue;
@@ -211,7 +215,7 @@ main {
 #calender {
   text-align: center;
   width: 100%;
-  display: none;
+  //display: none;
   position: relative;
   z-index: 200;
   top: 0;
@@ -219,12 +223,19 @@ main {
   background-color: white;
 
   .calender-container {
-    width: 350px;
+
+
+    .calender {
+      width: 300px;
+      display: inline-block;
+      float: left;
+    }
   }
 
   table {
     border-collapse: collapse;
     margin: auto;
+    display: inline-block;
 
     td {
       display: inline-block;

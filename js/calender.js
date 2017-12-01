@@ -30,7 +30,7 @@ $(document).ready(function() {
     tds.push(this);
     var today = new Date();
     //om td är en cell som inte ska innehålla datum denna månaden
-    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay()) {
+    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay() - 1) {
       $(this).text("");
       $(this).addClass("disabled");
     }
@@ -55,7 +55,7 @@ $(document).ready(function() {
     if(!$(this).hasClass("disabled")) {
       //om det är första gången den klickas på så sätts datumet för avresan
       if (firstClick) {
-        departDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
+        departDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
         firstClick = false;
         $("td.border").each(function(){
           $(this).removeClass("border");
@@ -67,8 +67,8 @@ $(document).ready(function() {
         $(this).addClass("active");
       }
       //kollar så att inte hemresan är innan avresan
-      else if (new Date(year, thisMonth, tds.indexOf(this) - 2) > departDate) {
-        returnDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
+      else if (new Date(year, thisMonth, tds.indexOf(this) - 3) > departDate) {
+        returnDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
         firstClick = true;
         addToInput(departDate, returnDate);
         $(this).addClass("active");
@@ -86,46 +86,16 @@ $(document).ready(function() {
   $("#calender tbody td").hover(function() {
     //om användaren redan klickat så markeras alla td mellan avresan och hemresan
     if(!firstClick) {
-      returnDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
+      returnDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
       $("td.border").each(function(){
         $(this).removeClass("border");
       });
-      for(var i = departDate.getDate()  + 2; i < returnDate.getDate() + 2; i++) {
+      for(var i = departDate.getDate()  + 3; i < returnDate.getDate() + 3; i++) {
         $(tds[i]).addClass("border");
       }
     }
   });
 });
-
-function displayCalender(month) {
-  thisMonth = month;
-  //sätter rubriken till rätt månad
-  $("#calender h2").text(months[thisMonth]);
-  $("#calender tbody td").each(function() {
-    tds.push(this);
-    var today = new Date();
-    //om td är en cell som inte ska innehålla datum denna månaden
-    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay()) {
-      $(this).text("");
-      $(this).addClass("disabled");
-    }
-    //om datumet redan varit
-    else if(date < new Date().getDate()) {
-      $(this).addClass("disabled");
-      $(this).text(date);
-      date++;
-    }
-    //om datumet är innan nästa månad
-    else if(date <= new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) {
-      $(this).text(date);
-      date++;
-    } else {
-      $(this).addClass("invisible");
-      $(this).text("");
-    }
-    tdPosition++;
-  });
-}
 
 //sätter värdet av avresan och hemresan i inputen
 function addToInput(departD, returnD) {

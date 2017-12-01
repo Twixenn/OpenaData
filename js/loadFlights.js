@@ -11,7 +11,7 @@ function loadDataFlights(iata) {
       buildFlights(data);
     },
     error:function (jqXHR, status, error){
-      alert("warning");
+      alert("It's something wrong with the server or your input (check spelling)");
     }
   })
 }
