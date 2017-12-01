@@ -7,7 +7,9 @@
   <link href="css/styles.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+  <script src="bower_components/mustache.js/mustache.min.js"></script>
   <script src="js/calender.js" charset="utf-8"></script>
+  <script src="js/loadBnb.js" charset="utf-8"></script>
   <title>FlightBnB</title>
 </head>
 <body>
@@ -88,8 +90,10 @@
       </table>
     </section>
   </section>
+
   <section id="map">
   </section>
+
   <main>
     <section id="flights" class="api">
       <div id="flighthandle" class="handle">
@@ -169,78 +173,7 @@
       </div>
       <h1>HOMES</h1>
       <section class="api-content">
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
-        <div class="bnb api-information">
-          <div class="image"><img src="https://a0.muscache.com/im/pictures/d0ca5230-3146-4fd0-aff9-273616db72dd.jpg?aki_policy=xx_large"></div>
-          <div class="information">
-            <h2>APARTMENT IN LONDON</h2>
-            <p>Delat rum</p>
-            <p><span>från  </span>358kr/natt</p>
-            <p>4 av 5</p>
-          </div>
-        </div>
+        <!--Här laddas informationen från output.json in-->
       </section>
     </section>
 
