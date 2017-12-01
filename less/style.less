@@ -1,0 +1,207 @@
+// out: .../css/styles.css, sourcemap: true, compress: true
+@import "logo.css";
+@mainHeight: calc(~"100vh - 60px");
+@blue: #60c6f2;
+@darkBlue: #1682b2;
+
+body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+button {
+  border: 2px solid @darkBlue;
+  background-color: @darkBlue;
+  color: white;
+  transition: 0.3s ease;
+
+  &:hover {
+    border-color: white;
+    background-color: @blue;
+  }
+}
+
+#map {
+  display: block;
+  position: fixed !important;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+}
+
+/*NAV*/
+nav {
+  height: 60px;
+  position: relative;
+  z-index: 200;
+  background-color: white;
+
+  .container {
+    padding: 5px;
+  }
+
+  div {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  label {
+    display: none;
+  }
+
+  input {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 13px 10px;
+    line-height: 20px;
+    width: 200px;
+    border: 2px solid lightgray;
+    transition: 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border: 2px solid @blue;
+    }
+  }
+
+  button {
+    margin-left: 30px;
+    width: 100px;
+    height: 30px;
+  }
+}
+#logo {
+  padding: 0 20px;
+  height: 50px;
+  margin-right: 50px;
+  animation: logo;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  vertical-align: bottom;
+
+  img {
+    height: 100%;
+  }
+}
+
+/*MAIN*/
+main {
+  height: @mainHeight;
+  position: relative;
+
+  button {
+    width: 100px;
+    height: 30px;
+    top: 90%;
+    position: absolute;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+
+  .api {
+    box-sizing: border-box;
+    height: 100%;
+    width: 500px;
+    background-color: white;
+    position: absolute !important;
+    top: 0;
+    padding: 10px;
+
+    h1 {
+      text-align: center;
+      height: 30px;
+      display: none;
+    }
+
+    &#flights {
+      left: 0;
+    }
+
+    &#bnb {
+      right: 0;
+
+      .handle {
+        left: -30px !important;
+      }
+    }
+
+    .handle {
+      position: absolute;
+      background-color: @darkBlue;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      width: 30px;
+      right:-30px;
+
+      p {
+        margin: 0;
+        cursor: ew-resize;
+      }
+    }
+
+    .api-content {
+      min-height: 250px;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .api-information {
+      width: 48%;
+      border: 1px solid white;
+      background-color: @darkBlue;
+      color: white;
+      display: inline-block;
+      min-height: 300px;
+      height: auto;
+      overflow: hidden;
+      vertical-align: top;
+
+      &.active {
+        background-color: @blue;
+      }
+
+      .image {
+        width: 100%;
+        height: 150px;
+      }
+
+      img {
+        width: 100%;
+        background-size: cover !important;
+      }
+
+      .information {
+        padding: 10px;
+
+        h2 {
+          margin: 0;
+          font-size: 1rem;
+          margin-bottom: 15px;
+        }
+
+        p {
+          margin: 0;
+          margin-top: 5px;
+          font-size: 0.8rem;
+
+          span {
+            color: lightgray;
+          }
+        }
+      }
+    }
+  }
+}
