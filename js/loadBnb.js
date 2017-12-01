@@ -47,4 +47,5 @@ function buildBnb(data) {
     '</div>', data[i]);
   }
   $("#bnb .api-content").html(residents);
+  book();
 }
