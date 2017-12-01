@@ -205,3 +205,70 @@ main {
     }
   }
 }
+
+/*CALENDER*/
+#calender {
+  text-align: center;
+  width: 100%;
+  display: none;
+  position: relative;
+  z-index: 200;
+  top: 0;
+  padding: 1px;
+  background-color: white;
+
+  .calender-container {
+    width: 350px;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: auto;
+
+    td {
+      display: inline-block;
+      height: 2rem;
+      line-height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-color: white;
+    }
+
+    thead {
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    tbody {
+      td {
+        transition: 0.2s ease;
+
+        &:hover {
+          border: 2px solid @blue;
+        }
+
+        &.active {
+          background-color: @blue;
+          color: white;
+        }
+
+        &.border {
+          border: 2px solid @blue;
+        }
+
+        &.invisible {
+          visibility: hidden;
+        }
+
+        &.disabled {
+          color: lightgray;
+
+          &:hover {
+            border-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+//För att få tag på månadens namn
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var year;
 var thisMonth;
@@ -9,7 +10,7 @@ var departDate;
 var returnDate;
 
 $(document).ready(function() {
-
+  //kalendern visas när användaren trycker på inputen för datumen
   $("input").focus(function() {
     if($(this).attr("name") == "date"){
       $("#calender").show();
@@ -23,19 +24,24 @@ $(document).ready(function() {
 
   year = new Date().getFullYear();
   thisMonth = new Date().getMonth()
+  //sätter headingen till rätt månad
   $("#calender h2").text(months[thisMonth]);
   $("#calender tbody td").each(function() {
     tds.push(this);
     var today = new Date();
-    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay() - 1) {
+    //om td är en cell som inte ska innehålla datum denna månaden
+    if(tdPosition < new Date(today.getFullYear(), today.getMonth(), today.getDate()).getDay()) {
       $(this).text("");
       $(this).addClass("disabled");
     }
+    //om datumet redan varit
     else if(date < new Date().getDate()) {
       $(this).addClass("disabled");
       $(this).text(date);
       date++;
-    } else if(date <= new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) {
+    }
+    //om datumet är innan nästa månad
+    else if(date <= new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) {
       $(this).text(date);
       date++;
     } else {
@@ -47,6 +53,7 @@ $(document).ready(function() {
 
   $("#calender tbody td").click(function() {
     if(!$(this).hasClass("disabled")) {
+      //om det är första gången den klickas på så sätts datumet för avresan
       if (firstClick) {
         departDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
         firstClick = false;
@@ -58,7 +65,9 @@ $(document).ready(function() {
           $(this).removeClass("border");
         });
         $(this).addClass("active");
-      } else if (new Date(year, thisMonth, tds.indexOf(this) - 2) > departDate) {
+      }
+      //kollar så att inte hemresan är innan avresan
+      else if (new Date(year, thisMonth, tds.indexOf(this) - 2) > departDate) {
         returnDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
         firstClick = true;
         addToInput(departDate, returnDate);
@@ -75,6 +84,7 @@ $(document).ready(function() {
   });
 
   $("#calender tbody td").hover(function() {
+    //om användaren redan klickat så markeras alla td mellan avresan och hemresan
     if(!firstClick) {
       returnDate = new Date(year, thisMonth, tds.indexOf(this) - 2);
       $("td.border").each(function(){
@@ -87,6 +97,7 @@ $(document).ready(function() {
   });
 });
 
+//sätter värdet av avresan och hemresan i inputen
 function addToInput(departD, returnD) {
   $("input[name='date']").val(departD.getFullYear() + "-" + departD.getDate() + "-" + departD.getMonth()
                             + " to " + returnD.getFullYear() + "-" + returnD.getDate() + "-" + returnD.getMonth());
