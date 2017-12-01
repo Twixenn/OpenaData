@@ -12,8 +12,6 @@
   <script src="js/calender.js" charset="utf-8"></script>
   <script src="js/loadBnb.js" charset="utf-8"></script>
   <script src="js/handle.js" charset="utf-8"></script>
-  <script src="js/map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4JwPh8t8JH3XHMp69PUrn96DNE2gyYw&callback=initMap"async defer></script>
   <script src="js/book.js" charset="utf-8"></script>
   <title>FlightBnB</title>
 </head>
@@ -24,8 +22,8 @@
         <img src="Bilder/logo.svg" alt="logo">
       </div>
       <input type="text" name="date" value="" placeholder="Depature - Return">
-      <input type="text" name="from" value="" placeholder="From">
-      <input type="text" name="to" value="" placeholder="To">
+      <input id="from" type="text" name="from" value="" placeholder="From" required>
+      <input id="to" class="controls" type="text" placeholder="To" required>
       <button id="button" type="button">Search</button>
     </div>
   </nav>
@@ -96,8 +94,10 @@
     </section>
   </section>
 
-  <section id="map">
-  </section>
+  <div class="map-container">
+    <section id="map">
+    </section>
+  </div>
 
   <main>
     <section id="flights" class="api">
@@ -184,5 +184,8 @@
 
     <button id="book" type="button" name="button">Book</button>
   </main>
+  <script src="js/map.js" charset="utf-8"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4JwPh8t8JH3XHMp69PUrn96DNE2gyYw&libraries=places&callback=initAutocomplete"
+       async defer></script>
 </body>
 </html>
