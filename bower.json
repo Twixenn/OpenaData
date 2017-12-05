@@ -1,0 +1,17 @@
+{
+  "name": "OpenaData",
+  "homepage": "https://github.com/Twixenn/OpenaData",
+  "authors": [
+    "Twixenn <fiagustafsson1998@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

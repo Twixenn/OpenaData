@@ -23,7 +23,7 @@ $(document).ready(function() {
   })
 
   year = new Date().getFullYear();
-  thisMonth = new Date().getMonth()
+  thisMonth = new Date().getMonth();
   //sätter headingen till rätt månad
   $("#calender h2").text(months[thisMonth]);
   $("#calender tbody td").each(function() {
@@ -55,7 +55,7 @@ $(document).ready(function() {
     if(!$(this).hasClass("disabled")) {
       //om det är första gången den klickas på så sätts datumet för avresan
       if (firstClick) {
-        departDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
+        departDate = new Date(year, thisMonth, tds.indexOf(this));
         firstClick = false;
         $("td.border").each(function(){
           $(this).removeClass("border");
@@ -67,8 +67,8 @@ $(document).ready(function() {
         $(this).addClass("active");
       }
       //kollar så att inte hemresan är innan avresan
-      else if (new Date(year, thisMonth, tds.indexOf(this) - 3) > departDate) {
-        returnDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
+      else if (new Date(year, thisMonth, tds.indexOf(this)) > departDate) {
+        returnDate = new Date(year, thisMonth, tds.indexOf(this));
         firstClick = true;
         addToInput(departDate, returnDate);
         $(this).addClass("active");
@@ -83,22 +83,22 @@ $(document).ready(function() {
     }
   });
 
-  $("#calender tbody td").hover(function() {
-    //om användaren redan klickat så markeras alla td mellan avresan och hemresan
-    if(!firstClick) {
-      returnDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
-      $("td.border").each(function(){
-        $(this).removeClass("border");
-      });
-      for(var i = departDate.getDate()  + 3; i < returnDate.getDate() + 3; i++) {
-        $(tds[i]).addClass("border");
-      }
-    }
-  });
+  // $("#calender tbody td").hover(function() {
+  //   //om användaren redan klickat så markeras alla td mellan avresan och hemresan
+  //   if(!firstClick) {
+  //     returnDate = new Date(year, thisMonth, tds.indexOf(this) - 3);
+  //     $("td.border").each(function(){
+  //       $(this).removeClass("border");
+  //     });
+  //     for(var i = departDate.getDate()  + 3; i < returnDate.getDate() - 3; i++) {
+  //       $(tds[i]).addClass("border");
+  //     }
+  //   }
+  // });
 });
 
 //sätter värdet av avresan och hemresan i inputen
 function addToInput(departD, returnD) {
-  $("input[name='date']").val(departD.getFullYear() + "-" + departD.getDate() + "-" + departD.getMonth()
-                            + " to " + returnD.getFullYear() + "-" + returnD.getDate() + "-" + returnD.getMonth());
+  $("input[name='date']").val(departD.getFullYear() + "-" + ("0" + (departD.getMonth() + 1)).slice(-2) + "-" + ("0" + departD.getDate()).slice(-2)
+                            + " to " + returnD.getFullYear() + "-" + ("0" + (returnD.getMonth() + 1)).slice(-2) + "-" + ("0" + returnD.getDate()).slice(-2));
 }

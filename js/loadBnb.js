@@ -1,35 +1,22 @@
 var hasUpdated = false;
 var lastFile;
 
-$(document).ready(function() {
-  setInterval(checkUpdate, 1000);
-});
+//hämtar datas
+function loadBnb(place, inD, outD) {
+  if(place != null && inD != null && outD != null) {
+    var url = "http://localhost:8080/FlightBnB_backend/webresources/bnb?place=" + place + "?in=" + inD + "?out=" + outD;
 
-//kollar om filen ser likadan ut som den som fanns för en sekund sedan
-function checkUpdate() {
-  $.getJSON("output.json", function(json) {
-    var currentFile = JSON.stringify(json);
-    if (currentFile !== lastFile) {
-      lastFile = currentFile;
-      loadData();
-    }
-  });
-}
-
-//hämtar data från output.json
-function loadData() {
-  var url = "output.json";
-
-  $.ajax({
-    dataType: "json",
-    url:url,
-    success:function (data){
-      buildBnb(data);
-    },
-    error:function (jqXHR, status, error){
-      alert("It's something wrong with the server or your input (check spelling)");
-    }
-  })
+    $.ajax({
+      dataType: "json",
+      url:url,
+      success:function (data){
+        buildBnb(data);
+      },
+      error:function (jqXHR, status, error){
+        alert("It's something wrong with the server or your input (check spelling)");
+      }
+    });
+  }
 }
 
 //använder mustache för att skicka information från jsonfilen till index.html

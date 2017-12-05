@@ -3,17 +3,19 @@ var lastFile;
 var url = "http://localhost:8080/FlightBnB_backend/webresources/flights?place=";
 
 //hämtar data
-function loadDataFlights(iata) {
-  $.ajax({
-    dataType: "json",
-    url:url + iata,
-    success:function (data){
-      buildFlights(data);
-    },
-    error:function (jqXHR, status, error){
-      alert("It's something wrong with the server or your input (check spelling)");
-    }
-  })
+function loadDataFlights(iata, depart, returnD) {
+  if(iata != null && depart != null && returnD != null) {
+    $.ajax({
+      dataType: "json",
+      url:"http://localhost:8080/FlightBnB_backend/webresources/flights?place=" + iata + "?depart=" + depart + "?return=" + returnD,
+      success:function (data){
+        buildFlights(data);
+      },
+      error:function (jqXHR, status, error){
+        alert("It's something wrong with the server or your input (check spelling)");
+      }
+    });
+  }
 }
 
 //använder mustache för att skicka information till index.html

@@ -2,13 +2,16 @@ var marker;
 var map;
 var geocoder;
 var markers = [];
+var dates
 var koordinates = [];
+
 function initAutocomplete() {
   geocoder = new google.maps.Geocoder();
   var start = {lat: 43.258288, lng: 6.728614};
   map = new google.maps.Map(document.getElementById('map'), {
     center: start,
     zoom: 3,
+    gestureHandling: 'cooperative',
     styles: [
       {
         "featureType": "all",
@@ -250,6 +253,7 @@ function initAutocomplete() {
 }
 
 function codeAddress(address) {
+  var first = true;
   clearMarkers(null);
   for (var i = 0; i < address.length; i++) {
     //gör om platsnamnet till en position
@@ -259,18 +263,22 @@ function codeAddress(address) {
         var lng = results[0].geometry.location.lng();
         koordinates.push(lat);
         koordinates.push(lng);
-        addMarker(lat, lng);
         var latlng = {
           lat: lat,
           lng: lng
         };
         //kollar efter närliggande flygplatser
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
-          location: latlng,
-          radius: 50000,
-          type: ['airport']
-        }, processResults);
+        if(first) {
+          var service = new google.maps.places.PlacesService(map);
+          first = false;
+          service.nearbySearch({
+            location: latlng,
+            radius: 50000,
+            type: ['airport']
+          }, processResults);
+        } else {
+          addMarker(lat, lng);
+        }
       }
     });
   }
@@ -308,7 +316,7 @@ function loadDataAirport(lat, lng) {
     success:function (data){
       var iata = data.IATA;
       if(iata != null) {
-        loadDataFlights(data.IATA);
+        loadDataFlights(data.IATA, dates[0], dates[1]);
       }
     },
     error:function (jqXHR, status, error){
@@ -358,9 +366,12 @@ $(document).ready(function() {
   //hämtar från inputs när knappen trycks på
   $("#button").click(function(event){
     event.preventDefault();
+    date = $("#date").val();
+    dates = date.split(" to ");
     var locations = [];
     locations[0] = $("#from").val();
-    locations[1] = $("#to").val()
+    locations[1] = $("#to").val().replace(/,(.*)/, "");
     codeAddress(locations);
+    loadBnb(locations[1], dates[0], dates[1]);
   });
 });
